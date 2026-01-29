@@ -21,7 +21,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import kotlinx.serialization.Serializable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
@@ -43,12 +42,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Serializable
-object Profile
-
-@Serializable
-object FriendsList
-
 @Preview
 @Composable
 fun Navigation() {
@@ -67,7 +60,7 @@ fun Navigation() {
                 }
             )
         ) { entry ->
-            DetailScreen(name = entry.arguments?.getString("name"))
+            DetailScreen(name = entry.arguments?.getString("name"), navController = navController)
         }
     }
 }
@@ -102,9 +95,16 @@ fun MainScreen(navController: NavController) {
 }
 
 @Composable
-fun DetailScreen(name: String?) {
+fun DetailScreen(navController: NavController, name: String?) {
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Text(text = "Hello $name")
+    }
+    Button(
+        onClick = {
+            navController.navigate(Screen.MainScreen.route)
+        },
+    ) {
+        Text(text = "To Mainscreen")
     }
 }
 
