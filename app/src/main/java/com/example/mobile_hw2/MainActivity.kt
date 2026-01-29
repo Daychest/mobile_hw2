@@ -45,41 +45,48 @@ class MainActivity : ComponentActivity() {
 
 @Serializable
 object Profile
+
 @Serializable
 object FriendsList
 
 @Preview
 @Composable
-fun Navigation(){
+fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route){
-        composable(route = Screen.MainScreen.route){
+    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
+        composable(route = Screen.MainScreen.route) {
             MainScreen(navController = navController)
         }
         composable(
             route = Screen.DetailScreen.route + "/{name}",
             arguments = listOf(
-                navArgument("name"){
+                navArgument("name") {
                     type = NavType.StringType
                     defaultValue = "Philipp"
                     nullable = true
                 }
             )
-        ){ entry ->
+        ) { entry ->
             DetailScreen(name = entry.arguments?.getString("name"))
         }
     }
 }
 
 @Composable
-fun MainScreen(navController: NavController){
+fun MainScreen(navController: NavController) {
     var text by remember {
         mutableStateOf("")
     }
-    Column(verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth().padding(horizontal = 50.dp)) {
-        TextField(value = text, onValueChange = {
-            text = it
-        },
+    Column(
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 50.dp)
+    ) {
+        TextField(
+            value = text, onValueChange = {
+                text = it
+            },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -87,15 +94,16 @@ fun MainScreen(navController: NavController){
             onClick = {
                 navController.navigate(Screen.DetailScreen.withArgs(text))
             },
-            modifier = Modifier.align(Alignment.End)){
-                Text(text = "To DetailScreen")
-            }
+            modifier = Modifier.align(Alignment.End)
+        ) {
+            Text(text = "To DetailScreen")
+        }
     }
 }
 
 @Composable
-fun DetailScreen(name: String?){
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()){
+fun DetailScreen(name: String?) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
         Text(text = "Hello $name")
     }
 }
