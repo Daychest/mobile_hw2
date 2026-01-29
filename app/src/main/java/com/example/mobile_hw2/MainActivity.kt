@@ -4,44 +4,105 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ComposableOpenTarget
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
+import androidx.navigation.Navigation
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.mobile_hw2.ui.theme.Mobile_hw2Theme
+import kotlinx.serialization.Serializable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.style.LineHeightStyle
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Mobile_hw2Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+            Navigation()
+        }
+    }
+}
+
+@Serializable
+object Profile
+@Serializable
+object FriendsList
+
+@Composable
+fun Navigation(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = Screen.MainScreen.route){
+        composable(route = Screen.MainScreen.route){
+            MainScreen(navController = navController)
+        }
+        composable(
+            route = Screen.DetailScreen.route + "/{name}",
+            arguments = listOf(
+                navArgument("name"){
+                    type = NavType.StringType
+                    defaultValue = "Philipp"
+                    nullable = true
                 }
-            }
+            )
+        ){ entry ->
+            DetailScreen(name = entry.arguments?.getString("name"))
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Mobile_hw2Theme {
-        Greeting("Android")
+fun MainScreen(navController: NavController){
+    var text by remember {
+        mutableStateOf("")
+    }
+    Column(verticalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth().padding(horizontal = 50.dp)) {
+        TextField(value = text, onValueChange = {
+            text = it
+        },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = {
+                navController.navigate(Screen.DetailScreen.withArgs(text))
+            },
+            modifier = Modifier.align(Alignment.End)){
+                Text(text = "To DetailScreen")
+            }
     }
 }
+
+@Composable
+fun DetailScreen(name: String){
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()){
+        Text(text = "Hello $name")
+    }
+}
+
