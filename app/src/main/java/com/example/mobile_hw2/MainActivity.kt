@@ -23,9 +23,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.mobile_hw2.ui.theme.Mobile_hw2Theme
@@ -59,6 +62,7 @@ class MainActivity : ComponentActivity() {
 
 const val mainScreenRoute = "mainScreen"
 const val messageScreenRoute = "messageScreen"
+const val settingsScreenRoute = "settingsScreen"
 
 @Preview
 @Composable
@@ -70,6 +74,9 @@ fun Navigation() {
         }
         composable(route = messageScreenRoute) {
             MessageScreen(navController = navController)
+        }
+        composable(route = settingsScreenRoute) {
+            SettingsScreen(navController = navController)
         }
     }
 }
@@ -98,7 +105,7 @@ fun MainScreen(navController: NavController) {
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                navController.navigate(messageScreenRoute)
+                navController.navigate(settingsScreenRoute)
             },
             colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
         ) {
@@ -134,6 +141,36 @@ fun MessageScreen(navController: NavController) {
         }
         Mobile_hw2Theme() {
             Conversation(SampleData.conversationSample)
+        }
+    }
+}
+
+@Composable
+fun SettingsScreen(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 50.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = "hahah",
+            modifier = Modifier
+                .border(width = 1.dp, color = Color.Black, shape = CircleShape)
+                .fillMaxWidth()
+                .height(40.dp)
+                .align (Alignment.CenterHorizontally)
+        )
+        Button(
+            onClick = {
+                navController.popBackStack()
+            },
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth()
+        ) {
+            Text(text = "Back")
         }
     }
 }
