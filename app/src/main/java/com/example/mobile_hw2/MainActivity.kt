@@ -126,19 +126,27 @@ fun MessageScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(20.dp))
-        Button(
-            onClick = {
-                navController.navigate(mainScreenRoute) {
-                    popUpTo(mainScreenRoute) {
-                        inclusive = true
-                    }
-                }
-            },
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .fillMaxWidth()
+        Row(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Back")
+            Button(
+                modifier = Modifier.width(190.dp),
+                onClick = {
+                    navController.popBackStack()
+                },
+            ) {
+                Text(text = "Back")
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+            Button(
+                modifier = Modifier.width(190.dp),
+                onClick = {
+                    navController.navigate(settingsScreenRoute)
+                },
+                colors = ButtonDefaults.buttonColors(Color.DarkGray)
+            ) {
+                Text(text = "Settings")
+            }
         }
         Mobile_hw2Theme() {
             Conversation(SampleData.conversationSample)
