@@ -104,16 +104,15 @@ fun MainScreen(navController: NavController) {
 
 @Composable
 fun DetailScreen(navController: NavController) {
-    Column (
-        modifier = Modifier.fillMaxWidth(0.9f),
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-
-    ){
-        Spacer(modifier = Modifier.height(80.dp))
+    ) {
+        Spacer(modifier = Modifier.height(20.dp))
         Button(
-
-            //modifier = Modifier.size(width = 800.dp, height = 800.dp),
             onClick = {
                 navController.navigate(Screen.MainScreen.route) {
                     popUpTo(Screen.MainScreen.route) {
@@ -121,7 +120,9 @@ fun DetailScreen(navController: NavController) {
                     }
                 }
             },
-            modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth()
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth()
         ) {
             Text(text = "Back")
         }
