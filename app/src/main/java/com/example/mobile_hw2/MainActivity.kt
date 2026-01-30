@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -83,13 +84,16 @@ fun MainScreen(navController: NavController) {
             .fillMaxSize()
             .padding(horizontal = 40.dp)
     ) {
-        Button(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = {
-                navController.navigate(messageScreenRoute)
-            },
-        ) {
-            Text(text = "Strange Man")
+        Row {
+            ProfilePicture(R.drawable.reaction)
+            Button(
+                modifier = Modifier.fillMaxWidth().height(40.dp),
+                onClick = {
+                    navController.navigate(messageScreenRoute)
+                },
+            ) {
+                Text(text = "Strange Man")
+            }
         }
 
         Button(
@@ -153,14 +157,7 @@ fun ProfilePicture(picture: Int){
 @Composable
 fun MessageCard(msg: Message) {
     Row(modifier = Modifier.padding(all = 8.dp)) {
-        Image(
-            painter = painterResource(R.drawable.reaction),
-            contentDescription = null,
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-                .border(1.5.dp, MaterialTheme.colorScheme.secondary, CircleShape)
-        )
+        ProfilePicture(R.drawable.reaction)
         Spacer(modifier = Modifier.width(8.dp))
 
         // We keep track if the message is expanded or not in this
