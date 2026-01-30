@@ -72,8 +72,10 @@ fun MainScreen(navController: NavController) {
     }
     Column(
         verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(horizontal = 50.dp)
     ) {
         TextField(
@@ -87,7 +89,7 @@ fun MainScreen(navController: NavController) {
             onClick = {
                 navController.navigate(Screen.DetailScreen.withArgs(text))
             },
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text(text = "To DetailScreen")
         }
@@ -101,7 +103,7 @@ fun DetailScreen(navController: NavController, name: String?) {
     }
     Button(
         onClick = {
-            navController.navigate(Screen.MainScreen.route){
+            navController.navigate(Screen.MainScreen.route) {
                 popUpTo(Screen.MainScreen.route) {
                     inclusive = true
                 }
