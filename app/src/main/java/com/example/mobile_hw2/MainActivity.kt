@@ -74,7 +74,7 @@ fun Navigation() {
         }
         composable(
             route = Screen.DetailScreen.route,
-        ) { entry ->
+        ) {
             DetailScreen(navController = navController)
         }
     }
@@ -131,6 +131,8 @@ fun DetailScreen(navController: NavController) {
         }
     }
 }
+
+data class Message(val author: String, val body: String)
 
 @Composable
 fun MessageCard(msg: Message) {
@@ -195,13 +197,4 @@ fun Conversation(messages: List<Message>) {
     }
 }
 
-@Preview
-@Composable
-fun PreviewConversation() {
-    Mobile_hw2Theme {
-        Conversation(SampleData.conversationSample)
-    }
-}
 
-
-data class Message(val author: String, val body: String)
