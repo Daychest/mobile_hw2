@@ -47,6 +47,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.mobile_hw2.ui.theme.Mobile_hw2Theme
 
 
@@ -155,12 +156,8 @@ fun SettingsScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "hahah",
-            modifier = Modifier
-                .border(width = 1.dp, color = Color.Black, shape = CircleShape)
-                .fillMaxWidth()
-                .height(40.dp)
-                .align (Alignment.CenterHorizontally)
+            text = "No Settings",
+            fontSize = 40.sp,
         )
         Button(
             onClick = {
@@ -168,7 +165,7 @@ fun SettingsScreen(navController: NavController) {
             },
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .fillMaxWidth()
+                .fillMaxWidth(),
         ) {
             Text(text = "Back")
         }
