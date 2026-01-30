@@ -1,6 +1,5 @@
 package com.example.mobile_hw2
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,9 +9,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,9 +26,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -44,13 +38,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import com.example.mobile_hw2.ui.theme.Mobile_hw2Theme
 
 
@@ -64,16 +54,19 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+const val mainScreenRoute = "mainScreen"
+const val messageScreenRoute = "messageScreen"
+
 @Preview
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
-        composable(route = Screen.MainScreen.route) {
+    NavHost(navController = navController, startDestination = mainScreenRoute) {
+        composable(route = mainScreenRoute) {
             MainScreen(navController = navController)
         }
         composable(
-            route = Screen.DetailScreen.route,
+            route = messageScreenRoute,
         ) {
             DetailScreen(navController = navController)
         }
@@ -93,7 +86,7 @@ fun MainScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = {
-                navController.navigate(Screen.DetailScreen.route)
+                navController.navigate(messageScreenRoute)
             },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
@@ -114,8 +107,8 @@ fun DetailScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                navController.navigate(Screen.MainScreen.route) {
-                    popUpTo(Screen.MainScreen.route) {
+                navController.navigate(mainScreenRoute) {
+                    popUpTo(mainScreenRoute) {
                         inclusive = true
                     }
                 }
