@@ -101,7 +101,11 @@ fun DetailScreen(navController: NavController, name: String?) {
     }
     Button(
         onClick = {
-            navController.navigate(Screen.MainScreen.route)
+            navController.navigate(Screen.MainScreen.route){
+                popUpTo(Screen.MainScreen.route) {
+                    inclusive = true
+                }
+            }
         },
     ) {
         Text(text = "To Mainscreen")
