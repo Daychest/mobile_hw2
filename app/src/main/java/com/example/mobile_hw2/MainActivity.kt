@@ -46,6 +46,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
@@ -103,17 +104,30 @@ fun MainScreen(navController: NavController) {
 
 @Composable
 fun DetailScreen(navController: NavController) {
-    //Column() { }
-    Button(
-        onClick = {
-            navController.navigate(Screen.MainScreen.route) {
-                popUpTo(Screen.MainScreen.route) {
-                    inclusive = true
+    Column (
+        modifier = Modifier.fillMaxWidth(0.9f),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+
+    ){
+        Spacer(modifier = Modifier.height(80.dp))
+        Button(
+
+            //modifier = Modifier.size(width = 800.dp, height = 800.dp),
+            onClick = {
+                navController.navigate(Screen.MainScreen.route) {
+                    popUpTo(Screen.MainScreen.route) {
+                        inclusive = true
+                    }
                 }
-            }
-        },
-    ) {
-        Text(text = "Back")
+            },
+            modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth()
+        ) {
+            Text(text = "Back")
+        }
+        Mobile_hw2Theme() {
+            Conversation(SampleData.conversationSample)
+        }
     }
 }
 
