@@ -23,6 +23,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,6 +39,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -65,10 +67,8 @@ fun Navigation() {
         composable(route = mainScreenRoute) {
             MainScreen(navController = navController)
         }
-        composable(
-            route = messageScreenRoute,
-        ) {
-            DetailScreen(navController = navController)
+        composable(route = messageScreenRoute) {
+            MessageScreen(navController = navController)
         }
     }
 }
@@ -81,22 +81,33 @@ fun MainScreen(navController: NavController) {
 
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 50.dp)
+            .padding(horizontal = 40.dp)
     ) {
-        Spacer(modifier = Modifier.height(8.dp))
         Button(
+            modifier = Modifier.fillMaxWidth(),
             onClick = {
                 navController.navigate(messageScreenRoute)
             },
-            modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            Text(text = "To DetailScreen")
+            Text(text = "Strange Man")
+        }
+
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+                navController.navigate(messageScreenRoute)
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
+        ) {
+            Text(text = "Settings")
         }
     }
 }
 
+
+
 @Composable
-fun DetailScreen(navController: NavController) {
+fun MessageScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -126,6 +137,18 @@ fun DetailScreen(navController: NavController) {
 }
 
 data class Message(val author: String, val body: String)
+
+@Composable
+fun ProfilePicture(picture: Int){
+    Image(
+        painter = painterResource(picture),
+        contentDescription = null,
+        modifier = Modifier
+            .size(40.dp)
+            .clip(CircleShape)
+            .border(1.5.dp, MaterialTheme.colorScheme.secondary, CircleShape)
+    )
+}
 
 @Composable
 fun MessageCard(msg: Message) {
