@@ -82,18 +82,17 @@ fun MainScreen(navController: NavController) {
 
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 40.dp)
+            .padding(horizontal = 50.dp)
     ) {
-        Row {
-            ProfilePicture(R.drawable.reaction)
-            Button(
-                modifier = Modifier.fillMaxWidth().height(40.dp),
-                onClick = {
-                    navController.navigate(messageScreenRoute)
-                },
-            ) {
-                Text(text = "Strange Man")
-            }
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp),
+            onClick = {
+                navController.navigate(messageScreenRoute)
+            },
+        ) {
+            Text(text = "Strange Man")
         }
 
         Button(
@@ -107,7 +106,6 @@ fun MainScreen(navController: NavController) {
         }
     }
 }
-
 
 
 @Composable
@@ -143,7 +141,7 @@ fun MessageScreen(navController: NavController) {
 data class Message(val author: String, val body: String)
 
 @Composable
-fun ProfilePicture(picture: Int){
+fun ProfilePicture(picture: Int) {
     Image(
         painter = painterResource(picture),
         contentDescription = null,
